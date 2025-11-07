@@ -4,16 +4,19 @@ import fetch from "node-fetch";
 const app = express();
 app.use(express.json({ limit: "2mb" }));
 
-// 🔁 核心反代逻辑
+const JUP_HOST = "quote-api.jup.ag";
+const JUP_IP = "172.67.181.66"; // 固定 IP 以防 DNS 解析失败
+
 app.use(async (req, res) => {
-  const targetUrl = "https://api.jup.ag" + req.originalUrl;
-  console.log("[Proxy]", req.method, targetUrl);
+  const target = `https://${JUP_IP}${req.originalUrl}`;
+  console.log("[Proxy]", req.method, target);
 
   try {
-    const response = await fetch(targetUrl, {
+    const response = await fetch(target, {
       method: req.method,
       headers: {
         ...req.headers,
+        host: JUP_HOST,
         origin: "https://jup.ag",
         referer: "https://jup.ag/",
         "user-agent":
