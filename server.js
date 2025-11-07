@@ -6,7 +6,7 @@ app.use(express.json({ limit: "2mb" }));
 
 // 🔁 核心反代逻辑
 app.use(async (req, res) => {
-  const targetUrl = "https://quote-api.jup.ag" + req.originalUrl;
+  const targetUrl = "https://api.jup.ag" + req.originalUrl;
   console.log("[Proxy]", req.method, targetUrl);
 
   try {
