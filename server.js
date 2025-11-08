@@ -40,6 +40,7 @@ app.use(async (req, res) => {
         req.method === "GET" || req.method === "HEAD"
           ? undefined
           : JSON.stringify(req.body),
+      duplex: "half",
       signal: controller.signal,
       compress: false, // 🚫 不使用压缩
     });
